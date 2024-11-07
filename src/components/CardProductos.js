@@ -14,12 +14,12 @@ const handleDelete = async (id) => {
     }
 };
 
-// Función para actualizar el estado de 'vendido' de un documento en Firestore
-const handleUpdate = async (id, vendido) => {
+// Función para actualizar el estado de 'estado' de un documento en Firestore
+const handleUpdate = async (id, estado) => {
     try {
-        // Se actualiza el campo 'vendido' invirtiendo su valor actual
+        // Se actualiza el campo 'estado' invirtiendo su valor actual
         await updateDoc(doc(database, 'productos', id), {
-            vendido: !vendido
+            estado: !estado
         });
         console.log('Se actualizó el documento con id: ', id);
     } catch (e) {
@@ -28,15 +28,15 @@ const handleUpdate = async (id, vendido) => {
 };
 
 // Componente funcional que representa una tarjeta de producto
-const CardProductos = ({ id, nombre, grado, seccion, observacion, vendido }) => {
+const CardProductos = ({ id, nombre, grado, seccion, observacion, estado }) => {
     return (
         <View style={styles.card}>
             <Text style={styles.nombre}>{nombre}</Text>
             <Text style={styles.text}>Grado:{grado}</Text>
             <Text style={styles.text}>Seccion:{seccion}</Text>
             <Text style={styles.text}>Observación:{observacion}</Text>
-            <Text style={[styles.text, vendido ? styles.vendido : styles.disponible]}>
-                {vendido ? "Finalizado" : "Pendiente"}
+            <Text style={[styles.text, estado ? styles.estado : styles.disponible]}>
+                {estado ? "Finalizado" : "Pendiente"}
             </Text>
 
             <View style={styles.buttonContainer}>
@@ -46,10 +46,10 @@ const CardProductos = ({ id, nombre, grado, seccion, observacion, vendido }) => 
                     <Text style={styles.deleteButtonText}>Eliminar</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={[styles.updateButton, vendido ? styles.regresarButton : styles.venderButton]}
-                    onPress={() => handleUpdate(id, vendido)}>
+                    style={[styles.updateButton, estado ? styles.regresarButton : styles.venderButton]}
+                    onPress={() => handleUpdate(id, estado)}>
                     <Text style={styles.updateButtonText}>
-                        {vendido ? "Devolver a pendiente" : "Finalizar"}
+                        {estado ? "Devolver a pendiente" : "Finalizar"}
                     </Text>
                 </TouchableOpacity>
             </View>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 5,
     },
-    vendido: {
+    estado: {
         color: 'green',
         fontWeight: 'bold',
     },

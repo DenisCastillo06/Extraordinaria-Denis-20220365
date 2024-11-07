@@ -41,7 +41,7 @@ const Home = ({ navigation }) => {
             id={item.id}
             nombre={item.nombre}
             grado={item.grado}
-            vendido={item.vendido}
+            estado={item.estado}
             seccion={item.seccion}
             observacion={item.observacion}
         />
