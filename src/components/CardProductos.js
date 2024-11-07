@@ -6,7 +6,7 @@ import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 // Función para eliminar un documento de Firestore
 const handleDelete = async (id) => {
     try {
-        // Se elimina el documento con el id proporcionado de la colección 'productos'
+        // Se elimina el documento con el id proporcionado de la colección 'registros'
         await deleteDoc(doc(database, 'productos', id));
         console.log('Se eliminó el documento con id: ', id);
     } catch (e) {
@@ -28,19 +28,17 @@ const handleUpdate = async (id, vendido) => {
 };
 
 // Componente funcional que representa una tarjeta de producto
-const CardProductos = ({ id, nombre, precio, vendido, imagen }) => {
+const CardProductos = ({ id, nombre, grado, seccion, observacion, vendido }) => {
     return (
         <View style={styles.card}>
             <Text style={styles.nombre}>{nombre}</Text>
-            <Text style={styles.text}>{precio}</Text>
+            <Text style={styles.text}>Grado:{grado}</Text>
+            <Text style={styles.text}>Seccion:{seccion}</Text>
+            <Text style={styles.text}>Observación:{observacion}</Text>
             <Text style={[styles.text, vendido ? styles.vendido : styles.disponible]}>
                 {vendido ? "Finalizado" : "Pendiente"}
             </Text>
-            {imagen ? (
-                <Image source={{ uri: imagen }} style={styles.image} />
-            ) : (
-                <Text style={styles.text}>No Image Available</Text>
-            )}
+
             <View style={styles.buttonContainer}>
                 <TouchableOpacity
                     style={styles.deleteButton}
@@ -82,18 +80,12 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     vendido: {
-        color: 'red',
-        fontWeight: 'bold',
-    },
-    disponible: {
         color: 'green',
         fontWeight: 'bold',
     },
-    image: {
-        width: '100%',
-        height: 200,
-        borderRadius: 10,
-        marginBottom: 10,
+    disponible: {
+        color: 'red',
+        fontWeight: 'bold',
     },
     buttonContainer: {
         flexDirection: 'row',
