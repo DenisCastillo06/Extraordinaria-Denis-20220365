@@ -77,7 +77,8 @@ const Add = ({ navigation }) => {
             Alert.alert('Error', 'Ocurrió un error al agregar el registro. Por favor, intenta nuevamente.');
         }
     };
-
+    
+    //Donde se ponen los campos del registro
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Agregar registro</Text>
@@ -131,7 +132,7 @@ export default Add;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#DBDBDB',
         alignItems: 'center',
         justifyContent: 'center',
         padding: 20,

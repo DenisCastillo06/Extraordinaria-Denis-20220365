@@ -6,6 +6,8 @@ import Add from '../screens/Add';
 
 const Stack = createNativeStackNavigator();
 
+
+//Las pantallas de la app y sus navegaciones
 const Navigation = () => {
     return (
         <NavigationContainer>
