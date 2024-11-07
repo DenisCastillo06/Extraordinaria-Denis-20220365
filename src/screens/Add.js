@@ -119,7 +119,7 @@ const Add = ({ navigation }) => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={goToHome}>
-                <Text style={styles.buttonText}>Volver a home</Text>
+                <Text style={styles.buttonText}>Volver a gestion</Text>
             </TouchableOpacity>
         </View>
     );
