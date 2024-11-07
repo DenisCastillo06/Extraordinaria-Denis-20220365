@@ -32,9 +32,9 @@ const CardProductos = ({ id, nombre, precio, vendido, imagen }) => {
     return (
         <View style={styles.card}>
             <Text style={styles.nombre}>{nombre}</Text>
-            <Text style={styles.text}>${precio}</Text>
+            <Text style={styles.text}>{precio}</Text>
             <Text style={[styles.text, vendido ? styles.vendido : styles.disponible]}>
-                {vendido ? "Vendido" : "Disponible"}
+                {vendido ? "Finalizado" : "Pendiente"}
             </Text>
             {imagen ? (
                 <Image source={{ uri: imagen }} style={styles.image} />
@@ -51,7 +51,7 @@ const CardProductos = ({ id, nombre, precio, vendido, imagen }) => {
                     style={[styles.updateButton, vendido ? styles.regresarButton : styles.venderButton]}
                     onPress={() => handleUpdate(id, vendido)}>
                     <Text style={styles.updateButtonText}>
-                        {vendido ? "Devolver Producto" : "Vender"}
+                        {vendido ? "Devolver a pendiente" : "Finalizar"}
                     </Text>
                 </TouchableOpacity>
             </View>

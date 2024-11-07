@@ -40,7 +40,7 @@ const Home = ({ navigation }) => {
         <CardProductos
             id={item.id}
             nombre={item.nombre}
-            precio={item.precio}
+            grado={item.grado}
             vendido={item.vendido}
             imagen={item.imagen}
         />
@@ -49,7 +49,7 @@ const Home = ({ navigation }) => {
     // Renderiza la interfaz del componente Home
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Productos Disponibles</Text>
+            <Text style={styles.title}>Registro de Estudiantes</Text>
 
             {/* Muestra la lista de productos si hay elementos, de lo contrario muestra un mensaje */}
             {
@@ -61,14 +61,14 @@ const Home = ({ navigation }) => {
                     contentContainerStyle={styles.list}
                 />
                 : 
-                <Text style={styles.Subtitle}>No hay productos disponibles</Text>
+                <Text style={styles.Subtitle}>No existen registros</Text>
             }
 
-            {/* Botón para navegar a la pantalla de agregar productos */}
+            {/* Botón para navegar a la pantalla de agregar registros */}
             <TouchableOpacity
                 style={styles.Button}
                 onPress={goToAdd}>
-                <Text style={styles.ButtonText}>Agregar Producto</Text>
+                <Text style={styles.ButtonText}>Agregar Registro</Text>
             </TouchableOpacity>
         </View>
     );

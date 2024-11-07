@@ -5,10 +5,10 @@ import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { collection, addDoc } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
 
-// Componente Add para agregar un nuevo producto
+// Componente Add para agregar un nuevo registro
 const Add = ({ navigation }) => {
-    // Estado inicial del producto
-    const [producto, setProducto] = useState({
+    // Estado inicial del registro
+    const [registro, setRegistro] = useState({
         nombre: '',
         precio: 0,
         vendido: false,
@@ -32,8 +32,8 @@ const Add = ({ navigation }) => {
             });
 
             if (!result.canceled && result.assets.length > 0) {
-                setProducto({
-                    ...producto,
+                setRegistro({
+                    ...registro,
                     imagen: result.assets[0].uri
                 });
                 console.log('Imagen seleccionada:', result.assets[0].uri);
@@ -48,11 +48,11 @@ const Add = ({ navigation }) => {
         try {
             let imageUrl = null;
 
-            if (producto.imagen) {
+            if (registro.imagen) {
                 console.log('Subiendo imagen a Firebase Storage...');
-                const imageRef = ref(storage, `images/${Date.now()}-${producto.nombre}`);
+                const imageRef = ref(storage, `images/${Date.now()}-${registro.nombre}`);
 
-                const response = await fetch(producto.imagen);
+                const response = await fetch(registro.imagen);
                 const blob = await response.blob();
 
                 console.log('Antes del uploadBytes');
@@ -63,49 +63,59 @@ const Add = ({ navigation }) => {
                 console.log("URL de la imagen:", imageUrl);
             }
 
-            console.log('Datos del producto:', {...producto, imagen: imageUrl});
-            await addDoc(collection(database, 'productos'), {...producto, imagen: imageUrl});
+            console.log('Datos del registro:', {...registro, imagen: imageUrl});
+            await addDoc(collection(database, 'productos'), {...registro, imagen: imageUrl});
             console.log('Se guardó la colección');
 
-            Alert.alert('Producto agregado', 'El producto se agregó correctamente', [
+            Alert.alert('Registro agregado', 'El registro se agregó correctamente', [
                 { text: 'Ok', onPress: goToHome },
             ]);
 
             goToHome();
         } catch (error) {
-            console.error('Error al agregar el producto', error);
-            Alert.alert('Error', 'Ocurrió un error al agregar el producto. Por favor, intenta nuevamente.');
+            console.error('Error al agregar el registro', error);
+            Alert.alert('Error', 'Ocurrió un error al agregar el registro. Por favor, intenta nuevamente.');
         }
     };
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>Agregar producto</Text>
+            <Text style={styles.title}>Agregar registro</Text>
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Nombre:</Text>
+                <Text style={styles.label}>Nombre Completo:</Text>
                 <TextInput
                     style={styles.input}
-                    onChangeText={text => setProducto({ ...producto, nombre: text })}
-                    value={producto.nombre}
+                    onChangeText={text => setRegistro({ ...registro, nombre: text })}
+                    value={registro.nombre}
                 />
             </View>
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Precio:</Text>
+                <Text style={styles.label}>Grado:</Text>
                 <TextInput
                     style={styles.input}
-                    onChangeText={text => setProducto({ ...producto, precio: parseFloat(text) })}
-                    value={producto.precio}
-                    keyboardType='numeric'
+                    onChangeText={text => setRegistro({ ...registro, grado: text })}
+                    value={registro.grado}
                 />
             </View>
-            <Text>Imagen:</Text>
-            <TouchableOpacity onPress={openGalery} style={styles.imagePicker}>
-                <Text style={styles.imagePickerText}>Seleccionar Imagen</Text>
-            </TouchableOpacity>
-            {producto.imagen ? <Image source={{ uri: producto.imagen }} style={styles.imagePreview} /> : null}
+            <View style={styles.inputContainer}>
+                <Text style={styles.label}>Sección:</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={text => setRegistro({ ...registro, seccion: text })}
+                    value={registro.seccion}
+                />
+            </View>
+            <View style={styles.inputContainer}>
+                <Text style={styles.label}>Observación:</Text>
+                <TextInput
+                    style={styles.input}
+                    onChangeText={text => setRegistro({ ...registro, observacion: text })}
+                    value={registro.observacion}
+                />
+            </View>
 
             <TouchableOpacity style={styles.button} onPress={agregarProducto}>
-                <Text style={styles.buttonText}>Agregar producto</Text>
+                <Text style={styles.buttonText}>Agregar registro</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={goToHome}>
